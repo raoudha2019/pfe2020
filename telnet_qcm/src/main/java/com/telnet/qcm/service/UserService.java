@@ -18,7 +18,7 @@ public interface UserService {
     public Collection<Permission> getPermbyUsername(String firstname);
     public User findUserByfirstname(String firstname);
     public List<User> findUserByEmail(String email);
-    public List<User> findByUsername(String username);
+    public User findByUsername(String username);
 
     // public List<User> findUserByRole (Long id);
 

@@ -84,10 +84,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findByUsername(String username) {
+        return userrepository.findByUsername(username);
+    }
+
+   /* @Override
     public List <User>  findByUsername(String username) {
         return userrepository.findByUsername(username);
 
-    }
+    }*/
+
     public List<Permission> findPermissionByUsername(String username){
         User user = (User) userrepository.findByUsername(username);
         return (List<Permission>) user.getRole().getPermissions();
@@ -99,11 +105,10 @@ public class UserServiceImpl implements UserService {
   /*  @Override
     public List <User> findUserByRole(Long id) {
         return userrepository.findUserByRole(id);
-    }
-    public Person findByUserName(String userName) {
-	 return personRepository.findByUsername(userName);
-}
-*/
+    }*/
+
+
+
 
 
 }

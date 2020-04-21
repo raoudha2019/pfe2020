@@ -91,8 +91,11 @@ public class User implements Serializable{
         // TODO Auto-generated constructor stub
     }
 
+    public User(String firstname) {
+        this.firstname = firstname;
+    }
 
-    public User(String firstname, String lastname,String username, String email, String password, Role role) {
+    public User(String firstname, String lastname, String username, String email, String password, Role role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;

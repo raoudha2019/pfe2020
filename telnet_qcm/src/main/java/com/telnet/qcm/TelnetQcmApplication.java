@@ -2,6 +2,8 @@ package com.telnet.qcm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 //impot com.telnet.qcm.dao.UserRepository;
@@ -14,4 +16,8 @@ public class TelnetQcmApplication {
         SpringApplication.run(com.telnet.qcm.TelnetQcmApplication.class, args);
     }
 
+   @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+   }
 }

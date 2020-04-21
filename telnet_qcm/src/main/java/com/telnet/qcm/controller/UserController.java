@@ -10,14 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
 import java.util.Collection;
 import java.util.List;
-
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @CrossOrigin("*")
 @RestController
@@ -31,42 +30,52 @@ public class UserController {
     UserService userService;
     @Autowired
     RoleService roleservice;
-   private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public UserController(UserRepository userRepository,
                           BCryptPasswordEncoder bCryptPasswordEncoder) {
-       this.userRepository = userRepository;
+        this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
-/*
-      @RequestMapping(value="/login",method= RequestMethod.POST)
-    public User findUserBynamepass(@RequestBody User u)  {
 
-        return  userRepository.findUserBynamepass(u.getFirstname(),u.getPassword());
+    @RequestMapping(value = "/verif", method = RequestMethod.POST)
+    public boolean checkPassword(@RequestBody User u) throws ValidationException {
+        //public boolean findUserBynamepass (@RequestBody User u) throws ValidationException {
+        User user = userService.findByUsername(u.getUsername());
+
+        if (user != null) {
+            boolean password_verified = false;
+            String password_plaintext = u.getPassword();
+            String stored_hash = user.getPassword();
+            if (null == stored_hash || !stored_hash.startsWith("$2a$")) {
+                throw new ValidationException("Invalid hash provided for comparison");
+            }
+
+            password_verified = BCrypt.checkpw(password_plaintext, stored_hash);
+
+            return (password_verified);
+        }
+        return false;
+
     }
 
-     @RequestMapping(value="/login",method= RequestMethod.POST)
-    public User findUserBynamepass (@RequestBody User u)  {
 
-        return  userRepository.findUserBynamepass (u.getFirstname(),u.getPassword());
-    }
-*/
+
 
 
 
     // find by userName
 
-    @RequestMapping(value="/auth",method=RequestMethod.GET)
+   /* @RequestMapping(value="/auth",method=RequestMethod.GET)
 
     public User findUserByfirstname(Authentication auth) {
         auth = SecurityContextHolder.getContext().getAuthentication();
         String user = auth.getName();
         return userService.findUserByfirstname(user);
+*/
 
-    }
     @GetMapping("/perissionByuserame")
     public List<Permission> PermissionUsername(Authentication auth) {
-
         auth = SecurityContextHolder.getContext().getAuthentication();
 
         String user = auth.getName();
@@ -116,7 +125,8 @@ public class UserController {
     @RequestMapping(value=("/getPermByFirstname"),method=RequestMethod.GET)
     public Collection<Permission> getPermbyUsername(@RequestBody User u) {
         User user = userRepository.findUserByfirstname(u.getFirstname());
-        Role role = user.getRole();
+        Role role;
+        role = user.getRole();
         return role.getPermissions();
     }
 
@@ -140,7 +150,7 @@ public class UserController {
     @RequestMapping(value="/updateUser/{id}",method=RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable long id) throws ValidationException {
         user.setId(id);
-       user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
         if (user.getFirstname().isEmpty()) {
             throw new ValidationException("Firstname is mondatery ");
@@ -185,14 +195,14 @@ public class UserController {
         User user = userRepository.findUserByfirstname(u.getFirstname());
         return  user.getRole();
     }
-
-   /* @RequestMapping(value = ("/getuserbyrole/{Roleid}"),method=RequestMethod.GET)
+/*
+    @RequestMapping(value = ("/getuserbyrole/{Roleid}"),method=RequestMethod.GET)
     public List<User> getuserbyrole(@PathVariable( "Roleid") Long id )
 
     {  Role role = roleservice.getRolebyid(id);
        List<User> listuser = userRepository.findUserByRole(role.getId());
            return listuser;
-    }*/
+    }
 
-
+*/
 }

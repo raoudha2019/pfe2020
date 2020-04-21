@@ -1,6 +1,5 @@
 package com.telnet.qcm.service;
 
-
 import com.telnet.qcm.dao.UserRepository;
 import com.telnet.qcm.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,21 +8,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
+
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        User user = (User) userRepository.findByUsername(username);
-
+          User user = userRepository.findByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
-        return new MyUserPrincipal(user);
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
+                new ArrayList<>());
     }
 
+
 }
+
+
+

@@ -12,8 +12,8 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
-    @Query("SELECT u FROM User u where u.firstname =:firstname and u.password =:password")
-    User findUserBynamepass(@Param("firstname") String firstname, @Param("password") String password );
+    @Query("SELECT u FROM User u where u.username =:username and u.password =:password")
+    User findUserBynamepass(@Param("username") String username, @Param("password") String password );
 
     @Query("SELECT u FROM User u where u.firstname =:firstname")
     User findUserByfirstname(@Param("firstname") String firstname);
@@ -27,11 +27,13 @@ public interface UserRepository extends JpaRepository<User, Long>{
     @Query("SELECT u FROM User u where u.email =:email")
     List<User> findUserByEmail(@Param("email") String email);
 
-    @Query("select u from User u where u.username is not null")
-    List<User> findByUsername(@Param("username") String email);
+  //  @Query("select u from User u where u.username is not null")
+    //List<User> findByUsername(@Param("username") String email);
 
     @Query ("SELECT u FROM User u WHERE u.role.id =: RoleId")
     List<User> findUserByRole(@Param("RoleId")  Long RoleId);
+
+    User findByUsername(String username);
 
 
 }
