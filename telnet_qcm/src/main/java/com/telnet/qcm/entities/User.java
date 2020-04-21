@@ -1,9 +1,9 @@
 package com.telnet.qcm.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 
 
@@ -18,10 +18,16 @@ public class User implements Serializable{
     private Long id;
     private String firstname;
     private String lastname;
+
+
+
+    private String username;
     private String email;
     private String password;
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
+
+
 
     public Long getId() {
         return id;
@@ -46,6 +52,13 @@ public class User implements Serializable{
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
@@ -79,9 +92,10 @@ public class User implements Serializable{
     }
 
 
-    public User(String firstname, String lastname, String email, String password, Role role) {
+    public User(String firstname, String lastname,String username, String email, String password, Role role) {
         this.firstname = firstname;
         this.lastname = lastname;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;

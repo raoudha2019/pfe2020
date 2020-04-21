@@ -13,8 +13,8 @@ public class RoleServiceImpl implements RoleService{
 
     @Autowired
     RoleRepository roleRepository;
-@Autowired
-   UserRepository userRepository;
+    @Autowired
+    UserRepository userRepository;
     @Override
     public List<Role> getAllroles() {
 

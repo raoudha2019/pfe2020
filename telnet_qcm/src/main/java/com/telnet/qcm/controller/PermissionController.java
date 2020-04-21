@@ -1,9 +1,9 @@
 package com.telnet.qcm.controller;
-
 import com.telnet.qcm.entities.Permission;
 import com.telnet.qcm.entities.PermissionGroup;
 import com.telnet.qcm.service.PermissionGroupService;
 import com.telnet.qcm.service.PermissionService;
+import com.telnet.qcm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,8 @@ public class PermissionController {
     PermissionGroupService permissionGroupService;
     @Autowired
     PermissionService permissionService;
-
+    @Autowired
+    RoleService roleService;
 
     /**
      * @param perm
@@ -45,6 +46,15 @@ public class PermissionController {
 
     }
 
+    @RequestMapping(value="/deleteperm/{roleid}",method=RequestMethod.DELETE)
+    public void removeperm(@PathVariable("roleid") Long id) {
+       // Role role =roleService.getRolebyid(id);
+
+       // Permission Perm = permissionService.getpermissionbyid (idp);
+
+        permissionService.removeperm(id);
+
+    }
 
     @RequestMapping(value=("/allPerm"),method=RequestMethod.GET)
     public List<Permission> getAllPerm()
@@ -59,13 +69,6 @@ public class PermissionController {
 
 
 
-   @RequestMapping(value="/deleteperm/{id}",method=RequestMethod.DELETE)
-    public void removeperm(@PathVariable("id") Long id) {
-      //  Permission Perm = permissionService.getpermissionbyid (id);
-
-        permissionService.removeperm(id);
-
-    }
 
 
     @RequestMapping(value=("/permission/{id}"),method=RequestMethod.GET)

@@ -15,8 +15,8 @@ import java.util.List;
 @Service("userservice")
 public class UserServiceImpl implements UserService {
 
-   @Autowired
-   UserRepository userrepository;
+    @Autowired
+    UserRepository userrepository;
 
     @Override
     public List<User> getAll() {
@@ -83,13 +83,27 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public List <User>  findByUsername(String username) {
+        return userrepository.findByUsername(username);
+
+    }
+    public List<Permission> findPermissionByUsername(String username){
+        User user = (User) userrepository.findByUsername(username);
+        return (List<Permission>) user.getRole().getPermissions();
+    }
+
+
+
+
   /*  @Override
     public List <User> findUserByRole(Long id) {
         return userrepository.findUserByRole(id);
+    }
+    public Person findByUserName(String userName) {
+	 return personRepository.findByUsername(userName);
+}
+*/
 
-    }*/
-   /* @Override
-    public User getuserbyrole(Long Roleid) {
-        return userrepository.getOne(Roleid);
-    }*/
+
 }

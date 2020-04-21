@@ -1,8 +1,8 @@
 package com.telnet.qcm.controller;
 import com.telnet.qcm.entities.Permission;
-import com.telnet.qcm.service.PermissionService;
 import com.telnet.qcm.entities.PermissionGroup;
 import com.telnet.qcm.service.PermissionGroupService;
+import com.telnet.qcm.service.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
