@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 //import org.springframework.beans.factory.annotation.Autowired;
 //impot com.telnet.qcm.dao.UserRepository;
 
+
 @SpringBootApplication
 public class TelnetQcmApplication {
 
@@ -20,4 +21,7 @@ public class TelnetQcmApplication {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
    }
+
+
+
 }

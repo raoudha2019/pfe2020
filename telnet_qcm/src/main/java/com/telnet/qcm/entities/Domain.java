@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
 @Table(name="Domain")
 public class Domain implements Serializable {
@@ -19,19 +18,31 @@ public class Domain implements Serializable {
     private Long id;
     private String name;
 
-    //bi-directional many-to-one association to Question
-    @JsonIgnore
+    //bi-directional many-to-one association to Qcm1
+   /* @JsonIgnore
     @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
     private List<Qcm> qcm;
+*/
+    @JsonIgnore
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
+    @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
+    private List<QcmJ> qcmJ ;
+
+  /*  @JsonIgnore
+    @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
+    private List<Qcm11> qcm11;
+
+*/
     public Domain() {
         super();
     }
 
-    public Domain(Long id,String name, List<Qcm> qcm) {
+    public Domain(Long id,String name, List<QcmJ>qcmJ) {
         this.id = id;
         this.name = name;
-        this.qcm = qcm;
+
+        this.qcmJ = qcmJ;
     }
 
     public Long getId() {
@@ -50,11 +61,13 @@ public class Domain implements Serializable {
         this.name = name;
     }
 
-    public List<Qcm> getQcm() {
-        return qcm;
+
+    public List<QcmJ> getQcmJ() {
+        return qcmJ;
     }
 
-    public void setQcm(List<Qcm> qcm) {
-        this.qcm = qcm;
+    public void setQcmJ(List<QcmJ> qcmJ) {
+        this.qcmJ = qcmJ;
     }
+
 }

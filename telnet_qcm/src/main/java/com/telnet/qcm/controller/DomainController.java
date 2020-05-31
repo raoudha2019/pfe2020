@@ -2,6 +2,7 @@ package com.telnet.qcm.controller;
 
 import com.telnet.qcm.dao.DomainRepository;
 import com.telnet.qcm.entities.Domain;
+import com.telnet.qcm.entities.QcmJ;
 import com.telnet.qcm.service.DomainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +58,10 @@ public class DomainController {
     public Domain getQcm(@PathVariable("id") Long id) {
         return domainService.getdomainbyid(id);
     }
+
+
+
+
+
 
 }

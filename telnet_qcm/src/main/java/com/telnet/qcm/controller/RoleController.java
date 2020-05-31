@@ -3,6 +3,7 @@ package com.telnet.qcm.controller;
 import com.telnet.qcm.dao.UserRepository;
 import com.telnet.qcm.entities.Permission;
 import com.telnet.qcm.entities.Role;
+import com.telnet.qcm.entities.User;
 import com.telnet.qcm.exception.ValidationException;
 import com.telnet.qcm.service.PermissionService;
 import com.telnet.qcm.service.RoleService;
@@ -127,7 +128,12 @@ public class RoleController {
       //return (ResponseEntity.ok());
     }
 
+    @RequestMapping(value="/getuser/{Roleid}",method=RequestMethod.GET)
+    public List<User> getUsers(@RequestBody User client, @PathVariable("Roleid")Long id) {
+        Role role = roleservice.getRolebyid(id);
+        return role.getUsers() ;
 
+    }
 
 
 

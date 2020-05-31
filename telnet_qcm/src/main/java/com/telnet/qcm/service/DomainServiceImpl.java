@@ -1,7 +1,6 @@
 package com.telnet.qcm.service;
 
 import com.telnet.qcm.dao.DomainRepository;
-import com.telnet.qcm.dao.QcmRepository;
 import com.telnet.qcm.entities.Domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,7 @@ public class DomainServiceImpl implements DomainService {
 
     @Autowired
     DomainRepository domainRepository;
-    @Autowired
-    QcmRepository qcmRepository;
+
 
     @Override
     public List<Domain> getAllDomain() {

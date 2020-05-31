@@ -1,10 +1,11 @@
 package com.telnet.qcm.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.util.List;
 
 
 @Entity
@@ -27,7 +28,9 @@ public class User implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-
+    @JsonIgnore
+    @OneToMany(mappedBy="user", cascade = CascadeType.REMOVE)
+    private List<QcmJ> qcmJ;
 
     public Long getId() {
         return id;
@@ -86,6 +89,14 @@ public class User implements Serializable{
         this.role = role;
     }
 
+    public List<QcmJ> getQcmJ() {
+        return qcmJ;
+    }
+
+    public void setQcmJ(List<QcmJ> qcmJ) {
+        this.qcmJ = qcmJ;
+    }
+
     public User() {
         super();
         // TODO Auto-generated constructor stub
@@ -95,12 +106,13 @@ public class User implements Serializable{
         this.firstname = firstname;
     }
 
-    public User(String firstname, String lastname, String username, String email, String password, Role role) {
+    public User(String firstname, String lastname, String username, String email, String password, Role role, List<QcmJ>qcmJ) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.qcmJ = qcmJ;
     }
 }

@@ -116,13 +116,17 @@ public class UserController {
         return userService.getAll();
     }
 
+
+
+
+
     @RequestMapping(value=("/getPersonsByID/{id}"),method=RequestMethod.GET)
     public User getuserbyid(@PathVariable("id") Long id)
     {
         return userService.getuserbyid(id);
     }
 
-    @RequestMapping(value=("/getPermByFirstname"),method=RequestMethod.GET)
+    @RequestMapping(value=("/getPermByFirstname/"),method=RequestMethod.GET)
     public Collection<Permission> getPermbyUsername(@RequestBody User u) {
         User user = userRepository.findUserByfirstname(u.getFirstname());
         Role role;
@@ -195,7 +199,7 @@ public class UserController {
         User user = userRepository.findUserByfirstname(u.getFirstname());
         return  user.getRole();
     }
-/*
+
     @RequestMapping(value = ("/getuserbyrole/{Roleid}"),method=RequestMethod.GET)
     public List<User> getuserbyrole(@PathVariable( "Roleid") Long id )
 
@@ -203,6 +207,4 @@ public class UserController {
        List<User> listuser = userRepository.findUserByRole(role.getId());
            return listuser;
     }
-
-*/
 }
