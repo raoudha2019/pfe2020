@@ -1,9 +1,10 @@
 package com.telnet.qcm.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.*;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Permission implements Serializable {
@@ -23,7 +24,19 @@ public class Permission implements Serializable {
     @JsonIgnore
     @ManyToOne
     private PermissionGroup permissionGroup;
+    public Permission() {
+        super();
 
+    }
+
+    public Permission(Long id, String name, Collection<Role> roles, PermissionGroup permissionGroup) {
+        super();
+        this.id = id;
+        this.name = name;
+        this.roles = roles;
+        this.permissionGroup = permissionGroup;
+
+    }
     public Long getId() {
         return id;
     }
@@ -34,7 +47,6 @@ public class Permission implements Serializable {
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -44,7 +56,6 @@ public class Permission implements Serializable {
     public Collection<Role> getRoles() {
         return roles;
     }
-
     @ManyToMany(mappedBy = "permissions")
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
@@ -62,18 +73,7 @@ public class Permission implements Serializable {
 
 
 
-    public Permission() {
-        super();
 
-    }
-
-    public Permission(Long id, String name, Collection<Role> roles, PermissionGroup permissionGroup) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.roles = roles;
-        this.permissionGroup = permissionGroup;
-    }
 
     }
 

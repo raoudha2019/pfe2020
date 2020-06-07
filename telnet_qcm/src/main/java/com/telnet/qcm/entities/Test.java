@@ -1,10 +1,8 @@
 package com.telnet.qcm.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 
 @Entity
 @Table(name="Test")
@@ -17,22 +15,34 @@ public class Test implements Serializable {
     private String title;
     private Long max_nb_questions;
     private String status;
-    @JsonIgnore
+    private Long time_limite;
+
+    /* @JsonIgnore
     @OneToMany(mappedBy="test", cascade = CascadeType.REMOVE)
     private List<QcmJ> Qcmjs;
+*/
+    @ManyToMany
+    @JoinTable(
+            name = "tests_QcmJs",
+
+            joinColumns = @JoinColumn (name = "test_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "qcmJ_id", referencedColumnName = "qcm_id"))
+
+    private Collection<QcmJ> qcmJs;
 
     public Test() {
     }
 
-    public Test(String title, Long max_nb_questions, String status, List<QcmJ> qcmJs) {
+    public Test(String title, Long max_nb_questions,Long time_limite ,String status, Collection <QcmJ> qcmJs) {
         this.title = title;
         this.max_nb_questions = max_nb_questions;
+        this.time_limite=time_limite;
         this.status = status;
-        Qcmjs = qcmJs;
+        this.qcmJs = qcmJs;
     }
 
     public Long getId() {
-        return id;
+    return id;
     }
 
     public void setId(Long id) {
@@ -59,15 +69,24 @@ public class Test implements Serializable {
         return status;
     }
 
+    public Long getTime_limite() {
+        return time_limite;
+    }
+
+    public void setTime_limite(Long time_limite) {
+        this.time_limite = time_limite;
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
 
-    public List<QcmJ> getQcmjs() {
-        return Qcmjs;
+    public Collection<QcmJ> getQcmJs() {
+        return qcmJs;
     }
 
-    public void setQcmjs(List<QcmJ> qcmjs) {
-        Qcmjs = qcmjs;
+    public void setQcmJs(Collection<QcmJ> qcmJs) {
+        this.qcmJs = qcmJs;
     }
 }
+

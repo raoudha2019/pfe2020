@@ -18,22 +18,13 @@ public class Domain implements Serializable {
     private Long id;
     private String name;
 
-    //bi-directional many-to-one association to Qcm1
-   /* @JsonIgnore
-    @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
-    private List<Qcm> qcm;
-*/
     @JsonIgnore
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
     @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
     private List<QcmJ> qcmJ ;
 
-  /*  @JsonIgnore
-    @OneToMany(mappedBy="domain", cascade = CascadeType.REMOVE)
-    private List<Qcm11> qcm11;
 
-*/
     public Domain() {
         super();
     }

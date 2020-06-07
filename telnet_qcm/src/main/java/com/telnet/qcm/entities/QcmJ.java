@@ -1,5 +1,6 @@
 package com.telnet.qcm.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.Type;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 
 @TypeDefs({
@@ -40,14 +42,12 @@ public class QcmJ implements Serializable {
        @Column(name = "question")
        private String question;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Test test;
+//    @ManyToOne(fetch = FetchType.EAGER)
+  //  private Test test;
 
-
-
-
-
-
+@JsonIgnore
+@ManyToMany(mappedBy = "qcmJs")
+private Collection<Test> tests;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 
     //bi-directional many-to-one association to Subcategory
@@ -63,13 +63,20 @@ public class QcmJ implements Serializable {
 
     }
 
-    public QcmJ(Long id,String title, QuestionBody questionBody, String question, String subDomain,Test test ,Domain domain, User user) {
+
+    public QcmJ(Long id,String subDomain, String title) {
+        this.id =id;
+        this.subDomain = subDomain;
+        this.title = title;
+    }
+
+    public QcmJ(Long id, String title, QuestionBody questionBody, String question, String subDomain, Collection<Test> tests , Domain domain, User user) {
         this.id =id;
         this.subDomain = subDomain;
         this.title = title;
         this.questionBody = questionBody;
         this.question = question;
-        this.test = test;
+        this.tests = tests;
         this.domain = domain;
         this.user = user;
     }
@@ -139,12 +146,13 @@ public class QcmJ implements Serializable {
         this.questionBody1 = questionBody1;
     }
 
-    public Test getTest() {
-        return test;
+    public Collection<Test> getTests() {
+        return tests;
     }
+    @ManyToMany(mappedBy = "qcmJs")
 
-    public void setTest(Test test) {
-        this.test = test;
+    public void setTests(Collection<Test> tests) {
+        this.tests = tests;
     }
 }
 

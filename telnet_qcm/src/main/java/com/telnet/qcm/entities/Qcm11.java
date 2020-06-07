@@ -9,6 +9,7 @@ public class Qcm11 implements Serializable {
     private String title;
     private QuestionBody questionBody;
     private Domain domain;
+
     public Qcm11() { }
     public Qcm11(Long id,String subDomain ,String title, QuestionBody questionBody , Domain domain) {
         this.id = id;
@@ -16,6 +17,7 @@ public class Qcm11 implements Serializable {
         this.title = title;
         this.questionBody = questionBody;
         this.domain = domain;
+
     }
 
 
